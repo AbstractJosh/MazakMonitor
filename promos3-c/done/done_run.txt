@@ -1,0 +1,10 @@
+gcc -std=c11 -O2 -Wall -Wextra promos3_sim.c  -o promos3_sim.exe  -lws2_32
+gcc -std=c11 -O2 -Wall -Wextra promos3_view.c -o promos3_view.exe -lws2_32
+gcc -std=c11 -O2 -DP3_NO_NET promos3_view.c -o promos3_view_nonet.exe
+
+.\promos3_sim.exe --selftest
+.\promos3_view.exe --selftest
+
+.\promos3_sim.exe --serve
+
+.\promos3_view.exe --master --gateway 127.0.0.1:1789

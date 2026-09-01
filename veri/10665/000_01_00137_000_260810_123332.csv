@@ -1,0 +1,10 @@
+Program ; 0
+Channel ; 1
+Tool ; 137
+Cut ; 0
+Start date ; 2026-08-10 12:33:32.189
+End date ; 2026-08-10 12:33:32.189
+File version ; 1
+
+Time (s) ; Date ; Time ; Workpiece ID ; VIBRATION ; Work VIBRATION ; M131 DEBI ; Work M131 DEBI ; M131BASINC ; Work M131BASINC ; M08 DEBI ; Work M08 DEBI ; Alarm ; Alarm limit ; Teach-In ; Setup ; Rework ; Limit 1 ; Limit type ; Limit feature ; Limit 2 ; Limit type ; Limit feature ; Limit 3 ; Limit type ; Limit feature ; Limit 4 ; Limit type ; Limit feature ; Limit 5 ; Limit type ; Limit feature ; Limit 6 ; Limit type ; Limit feature ; Limit 7 ; Limit type ; Limit feature ; Limit 8 ; Limit type ; Limit feature
+0 ; 10.08.2026 ; 12:33:32 ;  ;  ;  ; 211 ; 99 ; 108 ; 99 ; 225 ; 100 ;  ;  ;  ;  ;  ; 170 ; 1 ; 1 ; 50 ; 2 ; 2 ; 35 ; 2 ; 3 ; 50 ; 2 ; 4 ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 

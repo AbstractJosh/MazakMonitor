@@ -1,0 +1,120 @@
+/* Tailwind girisi + Alp tema koprusu.
+ *
+ * Koprusuz kurulum SESSIZCE bozulur: navy/steel/surface utility'leri hic
+ * uretilmez ve `sky` Tailwind'in varsayilan mavisine duser. Dogrulama:
+ * derlenmis CSS `.bg-sky-600{background-color:var(--sky-600)}` icermeli. */
+@import "tailwindcss";
+@import "@alp/design-system/theme.css";
+
+@source "../";
+
+/* ── YERLESIM ──────────────────────────────────────────────────────────────
+ *
+ * Alarm penceresinin payi. Pencere `fixed`tir (sag altta durur), yani akistan
+ * cikar ve altindaki icerigi kendiliginden itmez; son kartin uzerine oturmasin
+ * diye asagida yer ayrilir.
+ *
+ * PAY SCROLLER'IN ICINDEDIR. Disarida vermenin (kabukta `pb-20`) bedeli
+ * olculdu: 1600x1000 pencerede `main` 904'e kadar inerken scroller 824'te
+ * bitiyor, altinda 80 px'lik olu bir serit kaliyordu — grafik kartlari o
+ * kenarda cumle ortasindan kesiliyordu. Ustelik serit TUM GENISLIKTI, oysa
+ * pencere yalniz sag alttaki 384 px'i kaplar. Iceride verilince scroller
+ * pencerenin sonuna iner ve pay yalniz KAYDIRMA payi olur.
+ *
+ * Deger paketin alt tab bar icin kullandigi olcunun aynisi
+ * (`main`de `max-kabuk:pb-24`); olculen pencere ayak izi 92 px, 96 px onu
+ * gecer. Ham px YAZILMAZ, Tailwind'in `--spacing` belirteci uzerinden.
+ *
+ * Secici `[data-slot]` uzerinedir cunku scroller PAKETINDIR (PageShell onu
+ * kendi basar, disaridan sinif GECIRILEMEZ: `className` page-shell KOKUNE
+ * gider, icerige degil). Ozgulluk paketin `p-[var(--space-6)]` kisayolunu
+ * yener (0,2,0 > 0,1,0), yani yalniz alt dolgu ezilir.
+ *
+ * Paket bir gun scroller'a kendi alt payini verirse bu blok KOMPLE silinir. */
+.mzi-pencere-payi [data-slot="page-shell-content"] {
+  padding-bottom: calc(var(--spacing) * 24);
+}
+
+/* ── HAREKET ───────────────────────────────────────────────────────────────
+ *
+ * Buradaki her kural @alp/design-system'in KAPATMADIGI bir acilis/kapanis
+ * bosluguna yamadir. Paket bunlari kendi gonderdiginde blok KOMPLE silinir.
+ * Bugunku bosluklar (v11.1.0 kaynagi okunarak dogrulandi):
+ *   1. AccordionContent yalnizca `overflow-hidden`; yukseklik animasyonu yok.
+ *   2. AppShell sol navi w-16 <-> w-60 arasinda ANINDA ziplar.
+ *   3. Drawer'in GIRISI var (alp-drawer-right), CIKISI yok; panel yok olur.
+ *
+ * Sinif onu `mzi-` (Mazak Izleme): `alp-` paketin ad alanidir (alp-oto-izgara,
+ * alp-focus, alp-ritim-grup) ve orayi isgal etmek ileriki surumde carpisir.
+ *
+ * Sure/egri TOKEN'DAN gelir, elle sayi YAZILMAZ (tasarim dili, "Hareket ve
+ * durum"). Token DEGERLERI styles.css'ten gelir, theme.css'ten degil — bu
+ * yuzden main.tsx'teki import sirasi burada da yuk tasir. --ease-standard iki
+ * ucu da yavaslatan egridir; acilip kapanan bir sey icin simetrik olan budur. */
+
+/* 1. Grafik kutucugu (Canli Izleme).
+ *
+ * TRANSITION DEGIL KEYFRAME: Radix `Presence` sokumu YALNIZ CSS animasyonu
+ * icin erteler (`animationend` bekler). `transition` yazilsaydi icerik ilk
+ * karede sokulur ve kapanis HIC gorunmezdi. */
+@keyframes mzi-akordiyon-ac {
+  from { height: 0; }
+  to   { height: var(--radix-accordion-content-height); }
+}
+@keyframes mzi-akordiyon-kapa {
+  from { height: var(--radix-accordion-content-height); }
+  to   { height: 0; }
+}
+.mzi-akordiyon[data-state="open"] {
+  animation: mzi-akordiyon-ac var(--duration-base) var(--ease-standard);
+}
+.mzi-akordiyon[data-state="closed"] {
+  animation: mzi-akordiyon-kapa var(--duration-base) var(--ease-standard);
+}
+
+/* 2. Sol gezinmenin daralmasi.
+ *
+ * `overflow-x: hidden` SUS DEGIL, hata duzeltmesidir ve yalniz genislik
+ * oynayinca gorunur: aside `overflow-y: auto`dur, sartname geregi bu durumda
+ * overflow-x `visible`den `auto`ya duser. Nav basligindaki urun adi span'inin
+ * `min-w-0`i YOK, yani 64 -> 240 px acilisinda tam metin dar kutuya tasar ve
+ * bir kare yatay kaydirma cubugu carpar. Nav ogeleri `min-w-0 flex-1 truncate`
+ * oldugu icin onlar duzgun silinip acilir.
+ *
+ * Etiketler yine de ANINDA girip cikar (paket `!collapsed && <span>` basar);
+ * bu CSS'ten duzeltilemez, kapanista bir kare once dusmeleri kabul edildi. */
+[data-slot="app-shell-nav"] {
+  overflow-x: hidden;
+  transition: width var(--duration-base) var(--ease-standard);
+}
+
+/* 3. Cekmece cikisi (CompactList satir detayi).
+ *
+ * GIRIS paketten gelir ve dogrudur (alp-drawer-right: 16 px kayma + solma),
+ * eksik olan CIKIS: DialogPrimitive.Content aninda sokulur, panel yok olur.
+ * Yalniz `right` kapsanir; bu uygulamada baska kenar KULLANILMIYOR ve olu CSS
+ * yazmanin anlami yok.
+ *
+ * Ortu (scrim) BILINCLI olarak disarida: paketin ortusunde ne data-slot ne de
+ * animasyon var, bugun zaten iki yonde birden ziplar. Solduracak tek yol
+ * `:has(+ [data-slot="floating-panel"])` kardes secicisidir ki portal DOM
+ * sirasina baglidir ve paket ic duzenini degistirdiginde SESSIZCE bozulur. */
+@keyframes mzi-cekmece-cik-sag {
+  to { opacity: 0; transform: translateX(16px); }
+}
+[data-slot="floating-panel"][data-side="right"][data-state="closed"] {
+  animation: mzi-cekmece-cik-sag var(--duration-base) var(--ease-standard);
+}
+
+/* Azaltilmis hareket. Tasarim dili: "prefers-reduced-motion her animasyonlu
+ * sinifta karsilanir." `animation: none` ile Radix'e `animationend` HIC gelmez,
+ * yani icerik ayni karede sokulur — istenen sonuc tam da budur. */
+@media (prefers-reduced-motion: reduce) {
+  .mzi-akordiyon[data-state],
+  [data-slot="floating-panel"][data-side="right"][data-state="closed"] {
+    animation: none;
+  }
+  [data-slot="app-shell-nav"] {
+    transition: none;
+  }
+}

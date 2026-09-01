@@ -1,0 +1,209 @@
+/* Yerel @alp/design-system karsiligi — belirtec DEGERLERI + temel siniflar.
+ *
+ * main.tsx bunu app.css'ten ONCE import eder ve sira yuk tasir: token
+ * degerleri burada dogar, Tailwind koprusu (theme.css) onlari okur.
+ *
+ * HAREKET belirtecleri (--duration-*, --ease-*) BURADADIR, theme.css'te
+ * DEGIL: app.css'teki HAREKET blogu bunlari dogrudan okur ve o dosya
+ * "token degerleri styles.css'ten gelir" diye ozellikle yazar. */
+
+:root {
+  color-scheme: light;
+
+  /* --- Anlamsal yuzeyler (acik tema) --- */
+  --mzi-bg: #f5f7fa;
+  --mzi-fg: #0f172a;
+  --mzi-card: #ffffff;
+  --mzi-border: #dfe5ee;
+  --mzi-muted: #eef2f7;
+  --mzi-muted-fg: #5b6b80;
+  --mzi-ring: #2563eb;
+
+  /* --- Marka --- */
+  --mzi-navy-600: #1e3a5f;
+  --mzi-navy-700: #16304f;
+  --mzi-steel-500: #64748b;
+  --mzi-steel-600: #4a5a6e;
+  --mzi-surface-100: #eef2f7;
+  --mzi-surface-200: #e2e8f0;
+
+  /* --- Tonlar --- */
+  --mzi-sky-100: #e0f2fe;
+  --mzi-sky-600: #0284c7;
+  --mzi-sky-700: #0369a1;
+
+  --mzi-danger-100: #fee2e2;
+  --mzi-danger-600: #dc2626;
+  --mzi-danger-700: #b91c1c;
+
+  --mzi-success-100: #dcfce7;
+  --mzi-success-600: #16a34a;
+  --mzi-success-700: #15803d;
+
+  --mzi-warning-100: #fef3c7;
+  --mzi-warning-600: #d97706;
+  --mzi-warning-700: #b45309;
+
+  /* --- Olcu --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --touch-target: 44px;
+  --layer-nav: 40;
+  --radius: 10px;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 10px 30px rgb(15 23 42 / 0.16);
+
+  /* --- Hareket. Ham ms YAZILMAZ; egri iki ucu da yavaslatan simetrik olan. --- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --mzi-bg: #0b1220;
+  --mzi-fg: #e6edf6;
+  --mzi-card: #131c2b;
+  --mzi-border: #24324a;
+  --mzi-muted: #1a2537;
+  --mzi-muted-fg: #93a4bd;
+  --mzi-ring: #60a5fa;
+
+  --mzi-navy-600: #2b5687;
+  --mzi-navy-700: #1e3a5f;
+  --mzi-steel-500: #8296ad;
+  --mzi-steel-600: #64748b;
+  --mzi-surface-100: #1a2537;
+  --mzi-surface-200: #24324a;
+
+  --mzi-sky-100: #0c3049;
+  --mzi-sky-600: #38bdf8;
+  --mzi-sky-700: #7dd3fc;
+
+  --mzi-danger-100: #45161a;
+  --mzi-danger-600: #f87171;
+  --mzi-danger-700: #fca5a5;
+
+  --mzi-success-100: #10331f;
+  --mzi-success-600: #4ade80;
+  --mzi-success-700: #86efac;
+
+  --mzi-warning-100: #3d2a0c;
+  --mzi-warning-600: #fbbf24;
+  --mzi-warning-700: #fcd34d;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--mzi-bg);
+  color: var(--mzi-fg);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Tipografi olcegi ─────────────────────────────────────────────────────
+ * Ekranlar bu dort sinifi dogrudan yazar (type-card-title / type-help /
+ * type-kpi / type-code); paketin sozlugunun karsiligidir. */
+
+.type-card-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.type-help {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.type-kpi {
+  font-size: 1.5rem;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.type-code {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.8125rem;
+}
+
+/* ── Otomatik izgara ──────────────────────────────────────────────────────
+ * Karsilama kartlari ve grafik kutuciklari bunu kullanir. Paketin
+ * `alp-oto-izgara` ad alani KORUNUR: ekranlar sinifi adiyla yaziyor. */
+.alp-oto-izgara {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+}
+
+/* Ortak odak halkasi — klavye erisimi her denetimde ayni gorunsun. */
+.alp-focus:focus-visible,
+.alp-focus:has(:focus-visible) {
+  outline: 2px solid var(--mzi-ring);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="tab"]:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--mzi-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── DataTable satir detayi ───────────────────────────────────────────────
+ * `DataTable`in TEK CSS'i. Geri kalan her sey Tailwind'e ve paketin kendi
+ * bilesenlerine yazildi; yukseklik animasyonu yazilamadi cunku hedef degeri
+ * JS OLCER (`--dt-detay-h`) ve utility sinifi olculen bir degeri tasiyamaz.
+ *
+ * Burada, app.css'in HAREKET blogunda DEGIL: o blok paketin KAPATMADIGI
+ * bosluklara yamadir ve paket geri geldiginde silinir. Bu ise alp-local'e
+ * eklenen bir bilesenin KENDI hareketidir — bileseniyle ayni yerde durur,
+ * onunla birlikte gider. Onu `dt-`dir: `alp-` paketin ad alanidir.
+ *
+ * Kalip akordiyonunkiyle AYNIDIR (app.css `mzi-akordiyon`): sure ve egri
+ * token'dan gelir, ham ms yazilmaz; `--ease-standard` iki ucu da yavaslatan
+ * simetrik egridir. KAPANIS animasyonu YOKTUR — satir aninda sokulur, bu da
+ * `animationend` beklemeyi ve azaltilmis harekette o olayin hic gelmemesi
+ * tuzagini bastan siler. */
+@keyframes dt-detay-ac {
+  from { height: 0; }
+  to   { height: var(--dt-detay-h); }
+}
+.dt-detay {
+  overflow: hidden;
+}
+.dt-detay[data-state="acilan"] {
+  animation: dt-detay-ac var(--duration-base) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dt-detay[data-state="acilan"] {
+    animation: none;
+  }
+}

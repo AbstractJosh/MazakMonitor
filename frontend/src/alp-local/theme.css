@@ -1,0 +1,53 @@
+/* Tailwind tema kopruleri — YEREL @alp/design-system karsiligi.
+ *
+ * NEDEN VAR: ic registry (10.10.100.220:3000) disarida erisilemez ve paket
+ * public npm'de YOKTUR (404). Uygulamanin ALP agi disinda da kosabilmesi icin
+ * paketin YUZEYI burada yerel olarak karsilanir. Paket geri geldiginde bu
+ * dizin komple silinir ve vite/tsconfig'deki takma adlar kaldirilir.
+ *
+ * Renk DEGERLERI styles.css'te (`:root` + `[data-theme="dark"]`) durur; burasi
+ * yalnizca onlari Tailwind'in `--color-*` ad alanina baglar. Boylece koyu tema
+ * `dark:` varyanti gerektirmeden, degisken takasiyla calisir. */
+
+@theme {
+  /* Paket sm..2xl olceginin TAMAMINI siler ve tek kirilim birakir: 860px,
+     sol gezinmenin alt tab bar'a dondugu yer (ADR-0006). `sm:` yazmak bu
+     yuzden sessizce HICBIR kural uretmez — alarm-penceresi.tsx bunu ozellikle
+     isaretler. */
+  --breakpoint-*: initial;
+  --breakpoint-kabuk: 860px;
+
+  /* Anlamsal renkler — deger styles.css'ten gelir, koyu temada takas edilir. */
+  --color-background: var(--mzi-bg);
+  --color-foreground: var(--mzi-fg);
+  --color-card: var(--mzi-card);
+  --color-border: var(--mzi-border);
+  --color-muted: var(--mzi-muted);
+  --color-muted-foreground: var(--mzi-muted-fg);
+  --color-ring: var(--mzi-ring);
+
+  /* Marka. `bg-sky-600` uretiliyor olmasi kopru saglaminin olcusudur
+     (app.css basligindaki dogrulama cumlesi). */
+  --color-navy-600: var(--mzi-navy-600);
+  --color-navy-700: var(--mzi-navy-700);
+  --color-steel-500: var(--mzi-steel-500);
+  --color-steel-600: var(--mzi-steel-600);
+  --color-surface-100: var(--mzi-surface-100);
+  --color-surface-200: var(--mzi-surface-200);
+
+  --color-sky-100: var(--mzi-sky-100);
+  --color-sky-600: var(--mzi-sky-600);
+  --color-sky-700: var(--mzi-sky-700);
+
+  --color-danger-100: var(--mzi-danger-100);
+  --color-danger-600: var(--mzi-danger-600);
+  --color-danger-700: var(--mzi-danger-700);
+
+  --color-success-100: var(--mzi-success-100);
+  --color-success-600: var(--mzi-success-600);
+  --color-success-700: var(--mzi-success-700);
+
+  --color-warning-100: var(--mzi-warning-100);
+  --color-warning-600: var(--mzi-warning-600);
+  --color-warning-700: var(--mzi-warning-700);
+}

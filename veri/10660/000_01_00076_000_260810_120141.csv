@@ -1,0 +1,10 @@
+Program ; 0
+Channel ; 1
+Tool ; 76
+Cut ; 0
+Start date ; 2026-08-10 12:01:41.192
+End date ; 2026-08-10 12:01:41.192
+File version ; 1
+
+Time (s) ; Date ; Time ; Workpiece ID ; SPINDEL ; Work SPINDEL ; X AXIS ; Work X AXIS ; Y AXIS ; Work Y AXIS ; Z AXIS ; Work Z AXIS ; Alarm ; Alarm limit ; Teach-In ; Setup ; Rework ; Limit 1 ; Limit type ; Limit feature ; Limit 2 ; Limit type ; Limit feature ; Limit 3 ; Limit type ; Limit feature ; Limit 4 ; Limit type ; Limit feature ; Limit 5 ; Limit type ; Limit feature ; Limit 6 ; Limit type ; Limit feature ; Limit 7 ; Limit type ; Limit feature ; Limit 8 ; Limit type ; Limit feature
+0 ; 10.08.2026 ; 12:01:41 ;  ; 105 ; 86 ; 140 ; 83 ; 94 ; 87 ; 101 ; 87 ;  ;  ;  ;  ;  ; 110 ; 1 ; 1 ; 150 ; 1 ; 2 ; 111 ; 1 ; 3 ; 110 ; 1 ; 4 ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 

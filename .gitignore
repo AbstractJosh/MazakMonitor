@@ -1,0 +1,39 @@
+# --- Bagimliliklar (kurulum betikleriyle uretilir) ---
+# backend: `uv sync` · frontend: `npm ci`  (bkz. kur.bat)
+node_modules/
+.venv/
+
+# --- Python uretilen ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Frontend uretilen ---
+dist/
+.vite/
+*.tsbuildinfo
+
+# --- Calisma zamani verisi ---
+# veri/mazak.db surec ici CSV sim tarafindan yeniden dogar; olcum
+# CSV'leri (veri/10660, veri/10665) DEPODA DURUR, tekrar oynatma onlari okur.
+veri/*.db
+veri/*.db-shm
+veri/*.db-wal
+
+# --- Yerel yapilandirma / sirlar ---
+# .env.example commit'lenir, .env ASLA.
+.env
+.env.local
+.claude/settings.local.json
+
+# --- Isletim sistemi / editor ---
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vscode/
+
+# --- Aktarim artiklari (bu depoya bir daha girmez) ---
+*.zip

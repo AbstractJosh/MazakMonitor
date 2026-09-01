@@ -1,0 +1,6 @@
+gcc -std=c11 -Wall -Wextra -O2 -Isrc (Get-ChildItem src\*.c) -o promos3_reader.exe -lws2_32
+gcc -std=c11 -Wall -Wextra -O2 -Isrc tools\pmd.c src\promos3_config.c src\promos3_proto.c -o promos3_pmd.exe
+
+.\promos3_reader.exe --raw
+
+.\promos3_reader.exe --decode --config-unit 1=test\exVL2-1.txt --config-unit 2=test\exVL2-1.txt
